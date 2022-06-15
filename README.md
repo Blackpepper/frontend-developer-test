@@ -133,7 +133,7 @@ Your task is to build a *Vue* application that demonstrates the following featur
 
 ## Notes
 
-1. This must be built with Vue (preferably Vue 3)
+1. This must be built with Vue (can be Vue 2 or Vue 3)
 2. You are free to use any build tools you like
 3. The app does not need to be responsive
 4. You may choose to focus on application logic over styling (or vice versa) depending on your strengths, but bonus points for completing both
