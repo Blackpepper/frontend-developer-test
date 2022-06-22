@@ -21,7 +21,7 @@
           <th>
             <div>
               <div class="font-light">Trader 2</div>
-              <select v-model="selectedTraderTwo">
+              <select v-model="selectedTraderTwo" @change="getTraderTwoInfo()">
                 <option value="">Select</option>
                 <option v-for="record in martianList" 
                   :key="record.martinid" 
