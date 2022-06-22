@@ -85,6 +85,8 @@
 <script>
 // import { ref } from 'vue'
 import axios from 'axios'
+import Swal from 'sweetalert2'
+
 export default {
   data() {
     return {
@@ -262,7 +264,18 @@ export default {
         })
     }, 
     postMartianTrade(){
-
+      Swal.fire({
+        title: 'Are you sure you want to proceed in trading?',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, Im sure',
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire('Trade Successful!', '', 'success')
+        } else {
+          console.log('Cancelled Trade...')
+        }
+      })
     },
     computeOxygen : function(qty,pts){
       return pts != 0 ?  qty *  pts :  qty * 6
