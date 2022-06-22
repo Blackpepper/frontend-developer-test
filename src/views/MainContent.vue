@@ -165,6 +165,27 @@ export default {
           }
         ]
       }, 
+
+      finalTradeObject: {
+        buyFrom: {
+          martianid: 9,
+          items: [
+            {
+              "itemid": 1,
+              "quantity": 4
+            }
+          ]
+        },
+        sellTo: {
+          martianid: 8,
+          items: [
+            {
+              "itemid": 1,
+              "quantity": 5
+            }
+          ]
+        }
+      },
       traderOneObject1 :{},
       totalTrader1: 0
     }
@@ -237,7 +258,11 @@ export default {
     let clothing = this.computeWater(this.traderTwoObject.inventory[4].quantity,this.traderTwoObject.inventory[4].points);
 
     return oxygen+water+food+medication+clothing
-   }
+   },
+
+    getFinalTradeOnbject() {
+      return this.finalTradeObject
+    }
   },
   mounted() {
     this.getMartianList()
@@ -269,9 +294,19 @@ export default {
         showCancelButton: true,
         confirmButtonText: 'Yes, Im sure',
       }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          Swal.fire('Trade Successful!', '', 'success')
+          let data = this.getFinalTradeOnbject
+          axios.post('https://www.blackpepper.co.nz/api/martian/trade', data)
+            .then((res) => {
+              if(res) {
+                Swal.fire('',res.data.data.message,'success')
+              }
+            })
+            .catch(error => {
+              this.errorMessage = error.message;
+              console.error("There was an error! -----", error.message);
+              Swal.fire('',error.message,'error')
+            });
         } else {
           console.log('Cancelled Trade...')
         }
