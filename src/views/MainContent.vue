@@ -1,5 +1,6 @@
 <template>
   <div class="main-content">
+    <button @click="count++">Count is: {{ count }}</button>
     <table  cellspacing="0" cellpadding="0">
       <thead>
         <tr>
@@ -7,7 +8,7 @@
           <th>
             <div class="margin-tp-15">
               <div class="font-light">Trader 1</div>
-              <select v-model="selectedTraderOne">
+              <select v-model="selectedTraderOne" @change="getTraderOneInfo()">
                 <option value="">Select</option>
                 <option v-for="record in martianList" 
                   :key="record.martinid" 
@@ -39,26 +40,26 @@
             <span class="padding-rl-25">{{ item.name }}</span>
           </td>
           <td align="center">
-            <div v-for="i in getTraderOneInfo.inventory" :key="i.itemid">
+            <div v-for="i in traderOneObject.inventory" :key="i.itemid">
               <div v-if ="i.itemid === item.itemid">
-                <button @click="subOnClick">
+                <button @click="i.quantity--">
                 <font-awesome-icon class="white" icon="fa-solid fa-circle-minus" />
                 </button>
                 <span class="spanStyle">{{i.quantity}} / {{i.points}}</span>
-                <button @click="addOnClick">
+                <button @click="i.quantity++">
                   <font-awesome-icon class="white" icon="fa-solid fa-circle-plus" />
                 </button>
               </div>
             </div>
           </td>
           <td align="center">
-            <div v-for="i in getTraderTwoInfo.inventory" :key="i.itemid">
+            <div v-for="i in traderTwoObject.inventory" :key="i.itemid">
               <div v-if ="i.itemid === item.itemid">
-                <button>
+                <button @click="i.quantity--">
                 <font-awesome-icon class="white" icon="fa-solid fa-circle-minus" />
                 </button>
                 <span class="spanStyle">{{i.quantity}} / {{i.points}}</span>
-                <button>
+                <button  @click="i.quantity++">
                   <font-awesome-icon class="white" icon="fa-solid fa-circle-plus" />
                 </button>
               </div>
@@ -90,6 +91,7 @@ import Swal from 'sweetalert2'
 export default {
   data() {
     return {
+      count: 0,
       martianList: [],
       martianItems: [],
       selectedTraderOne:null,
@@ -192,54 +194,6 @@ export default {
   },
   watch: {},
   computed:{
-   getTraderOneInfo () {
-    let selData = {} 
-    let selDataInventory= []
-    let aa = []
-    let bb = []
-    
-    if (this.selectedTraderOne) {
-      selData = this.martianList.filter(res => res.name  == this.selectedTraderOne)
-      selData[0].inventory.filter(res => {
-        if(res.itemid){
-          selDataInventory.push(res)
-        }
-      })
-      aa = [...this.traderOneObject.inventory]
-      bb = selDataInventory.filter(res1 => aa.some(res2 => res1.itemid === res2.itemid))
-      let r = aa.filter(e => !bb.find(a => e.itemid === a.itemid));
-      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-      this.traderOneObject = {
-        martianid:selData[0].martianid,
-        inventory:[...bb, ...r]
-      }
-    }
-    return this.traderOneObject
-   },
-   getTraderTwoInfo () {
-    let selData = {} 
-    let selDataInventory= []
-    let aa = []
-    let bb = []
-    
-    if (this.selectedTraderTwo) {
-      selData = this.martianList.filter(res => res.name  == this.selectedTraderTwo)
-      selData[0].inventory.filter(res => {
-        if(res.itemid){
-          selDataInventory.push(res)
-        }
-      })
-      aa = [...this.traderTwoObject.inventory]
-      bb = selDataInventory.filter(res1 => aa.some(res2 => res1.itemid === res2.itemid))
-      let r = aa.filter(e => !bb.find(a => e.itemid === a.itemid));
-      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-      this.traderTwoObject = {
-        martianid:selData[0].martianid,
-        inventory:[...bb, ...r]
-      }
-    }
-    return this.traderTwoObject
-   },
 
    computeTrader1() {
     let oxygen = this.computeOxygen(this.traderOneObject.inventory[0].quantity,this.traderOneObject.inventory[0].points);
@@ -312,6 +266,58 @@ export default {
         }
       })
     },
+
+    getTraderOneInfo: function () {
+      alert()
+      let selData = {}
+      let selDataInventory = []
+      let aa = []
+      let bb = []
+
+      if (this.selectedTraderOne) {
+        selData = this.martianList.filter(res => res.name == this.selectedTraderOne)
+        selData[0].inventory.filter(res => {
+          if (res.itemid) {
+            selDataInventory.push(res)
+          }
+        })
+        aa = [...this.traderOneObject.inventory]
+        bb = selDataInventory.filter(res1 => aa.some(res2 => res1.itemid === res2.itemid))
+        let r = aa.filter(e => !bb.find(a => e.itemid === a.itemid));
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        this.traderOneObject = {
+          martianid: selData[0].martianid,
+          inventory: [...bb, ...r]
+        }
+      }
+      
+      return this.traderOneObject
+
+    },
+    getTraderTwoInfo () {
+    let selData = {} 
+    let selDataInventory= []
+    let aa = []
+    let bb = []
+    
+    if (this.selectedTraderTwo) {
+      selData = this.martianList.filter(res => res.name  == this.selectedTraderTwo)
+      selData[0].inventory.filter(res => {
+        if(res.itemid){
+          selDataInventory.push(res)
+        }
+      })
+      aa = [...this.traderTwoObject.inventory]
+      bb = selDataInventory.filter(res1 => aa.some(res2 => res1.itemid === res2.itemid))
+      let r = aa.filter(e => !bb.find(a => e.itemid === a.itemid));
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+      this.traderTwoObject = {
+        martianid:selData[0].martianid,
+        inventory:[...bb, ...r]
+      }
+    }
+    return this.traderTwoObject
+   },
     computeOxygen : function(qty,pts){
       return pts != 0 ?  qty *  pts :  qty * 6
     },
@@ -327,6 +333,7 @@ export default {
     computeClothing : function(qty,pts) {
       return pts != 0 ?  qty *  pts :  qty * 2
     },
+    
 
     clearData: function(){
       Object.assign(this.$data, this.$options.data());
