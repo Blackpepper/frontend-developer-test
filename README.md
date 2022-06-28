@@ -12,17 +12,12 @@ You have been tasked to develop an interface to make the trading experience bett
 
 ## Requirements
 
-You will be supplied a [design](https://www.figma.com/file/LfpdkCFeeeQUkXTGKkvGrm/Mars-trading-platform?node-id=2%3A266) and a [REST API](#endpoints), which will store information about the martians, the supplies they own and ability to trade.
+You will be supplied a [design](https://www.figma.com/file/LfpdkCFeeeQUkXTGKkvGrm/Mars-trading-platform?node-id=2%3A266) and a [REST API](#endpoints), which will store information about the martians, the supplies they own and ability to trade. Your task is to build a *Vue* application that allows trade between 2 martians.
 
-Your task is to build a *Vue* application that demonstrates the following feature:
-  
-- **Trade items**:
-
-  Martians can trade supplies among themselves, but only if they're not flagged (e.g. `allow` must be `1`) and they can't make a trade with themselves.
-
-  To do that, they must respect the price table below, where the value of an item is described in terms of points.
-
-  Both sides of the trade should offer the same amount of points. For example, 1 Oxygen and 1 Medication (1 x 6 + 1 x 2) is worth 2 Water (4 x 2) or 8 Clothing items (1 x 8).
+1. Martians are not allowed to trade with themselves (if they're selected in one dropdown, they should be disabled in the other)
+2. Flagged martians (i.e. where `allow` is `0`) are unable to trade, therefore they should be filtered out from the dropdowns
+3. The numbers in design (e.g. `1 / 2`) represent `[quantity of item being traded] / [quantity of item the trader has]`. The quantity of item being traded should not be less than 0 and should not exceed the total quantity the trader can trade
+4. Each item is worth a certain number of points (described below). Use the `GET Index/List Martian Items` endpoint for getting this data as available items may change
 
 | Item         | Points   |
 |--------------|----------|
@@ -31,6 +26,11 @@ Your task is to build a *Vue* application that demonstrates the following featur
 | 1 Food       | 3 points |
 | 1 Medication | 2 points |
 | 1 Clothing   | 1 point  |
+
+5. The total for each trader represents the sum of each item multiplied by their value and a trade can only occur if the total value of points is equal on both sides. For example, 1 Oxygen and 1 Medication (1 x 6 + 1 x 2) is worth 2 Water (4 x 2) or 8 Clothing items (1 x 8)
+6. The `Trade` button should be disabled if a trade cannot occur (e.g. totals don't match)
+7. When the `Trade` button is clicked, it should post to the `Martian Trade` endpoint. Note: only the items being traded should be included in the data
+
 
 ---------------------------------------
 
