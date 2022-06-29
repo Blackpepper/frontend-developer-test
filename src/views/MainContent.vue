@@ -1,6 +1,5 @@
 <template>
   <div class="main-content">
-    <button @click="count++">Count is: {{ count }}</button>
     <table  cellspacing="0" cellpadding="0">
       <thead>
         <tr>
@@ -10,7 +9,7 @@
               <div class="font-light">Trader 1</div>
               <select v-model="selectedTraderOne" @change="getTraderOneInfo()">
                 <option value="">Select</option>
-                <option v-for="record in martianList" 
+                <option v-for="record in getmartianDropdown1" 
                   :key="record.martinid" 
                   v-bind:value="record.name">
                   {{ record.name }}
@@ -23,7 +22,7 @@
               <div class="font-light">Trader 2</div>
               <select v-model="selectedTraderTwo" @change="getTraderTwoInfo()">
                 <option value="">Select</option>
-                <option v-for="record in martianList" 
+                <option v-for="record in getmartianDropdown2" 
                   :key="record.martinid" 
                   v-bind:value="record.name">
                   {{ record.name}}
@@ -91,11 +90,10 @@ import Swal from 'sweetalert2'
 export default {
   data() {
     return {
-      count: 0,
       martianList: [],
       martianItems: [],
-      selectedTraderOne:null,
-      selectedTraderTwo:null,
+      selectedTraderOne:'',
+      selectedTraderTwo:'',
 
       traderOneObject : {
         martianid: null,
@@ -195,6 +193,12 @@ export default {
   watch: {},
   computed:{
 
+   getmartianDropdown1() {
+      return this.martianList.filter( res => res.name !== this.selectedTraderTwo && res.allow !== 0) },
+
+   getmartianDropdown2() {
+      return this.martianList.filter( res => res.name !== this.selectedTraderOne && res.allow !== 0) },
+
    computeTrader1() {
     let oxygen = this.computeOxygen(this.traderOneObject.inventory[0].quantity,this.traderOneObject.inventory[0].points);
     let water = this.computeWater(this.traderOneObject.inventory[1].quantity,this.traderOneObject.inventory[1].points);
@@ -234,6 +238,7 @@ export default {
         })
     },
 
+
     getMartianItems() {
       axios.get('https://www.blackpepper.co.nz/api/martian/items')
         .then((res) => {
@@ -268,7 +273,6 @@ export default {
     },
 
     getTraderOneInfo: function () {
-      alert()
       let selData = {}
       let selDataInventory = []
       let aa = []

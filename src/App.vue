@@ -44,11 +44,12 @@ body {
 .bgImg {
   position: absolute;
   width: 1041px;
-  height: 935px;
+  height: 100vh;
   right:0;
-  background-image:
+  background:
     url('./assets/mars-img.png');
 }
+
 
 .overlay{
   position: absolute;
