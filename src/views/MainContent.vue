@@ -41,11 +41,11 @@
           <td align="center">
             <div v-for="i in traderOneObject.inventory" :key="i.itemid">
               <div v-if ="i.itemid === item.itemid">
-                <button @click="i.quantity--">
+                <button @click="i.qtytotrade > 0 ? i.qtytotrade-- : i.qtytotrade">
                 <font-awesome-icon class="white" icon="fa-solid fa-circle-minus" />
                 </button>
-                <span class="spanStyle">{{i.quantity}} / {{i.points}}</span>
-                <button @click="i.quantity++">
+                <span class="spanStyle">{{i.qtytotrade}} / {{i.quantity}}</span>
+                <button @click="i.qtytotrade < i.quantity ? i.qtytotrade++ : i.qtytotrade">
                   <font-awesome-icon class="white" icon="fa-solid fa-circle-plus" />
                 </button>
               </div>
@@ -54,11 +54,11 @@
           <td align="center">
             <div v-for="i in traderTwoObject.inventory" :key="i.itemid">
               <div v-if ="i.itemid === item.itemid">
-                <button @click="i.quantity--">
+                <button @click="i.qtytotrade > 0 ? i.qtytotrade-- : i.qtytotrade">
                 <font-awesome-icon class="white" icon="fa-solid fa-circle-minus" />
                 </button>
-                <span class="spanStyle">{{i.quantity}} / {{i.points}}</span>
-                <button  @click="i.quantity++">
+                <span class="spanStyle">{{i.qtytotrade}} / {{i.quantity}}</span>
+                <button  @click="i.qtytotrade < i.quantity ? i.qtytotrade++ : i.qtytotrade">
                   <font-awesome-icon class="white" icon="fa-solid fa-circle-plus" />
                 </button>
               </div>
@@ -92,8 +92,8 @@ export default {
     return {
       martianList: [],
       martianItems: [],
-      selectedTraderOne:'',
-      selectedTraderTwo:'',
+      selectedTraderOne:null,
+      selectedTraderTwo:null,
 
       traderOneObject : {
         martianid: null,
@@ -102,31 +102,36 @@ export default {
             itemid: 1,
             name: "Oxygen",
             points: 0, 
-            quantity: 0
+            quantity: 0,
+            qtytotrade: 0
           },
           {
             itemid: 2,
             name: "Water",
             points: 0,
-            quantity: 0
+            quantity: 0,
+            qtytotrade: 0
           },
           {
             itemid: 3,
             name: "Food",
             points: 0,
-            quantity: 0
+            quantity: 0,
+            qtytotrade: 0
           },
           {
             itemid: 4,
             name: "Medication",
             points: 0, 
-            quantity: 0
+            quantity: 0,
+            qtytotrade: 0
           },
           {
             itemid: 5,
             name: "Clothing",
             points: 0, 
-            quantity: 0
+            quantity: 0,
+            qtytotrade: 0
           }
         ]
       }, 
@@ -137,31 +142,36 @@ export default {
             itemid: 1,
             name: "Oxygen",
             points: 0, 
-            quantity: 0
+            quantity: 0,
+            qtytotrade: 0
           },
           {
             itemid: 2,
             name: "Water",
             points: 0,
-            quantity: 0
+            quantity: 0, 
+            qtytotrade: 0
           },
           {
             itemid: 3,
             name: "Food",
             points: 0,
-            quantity: 0
+            quantity: 0, 
+            qtytotrade: 0
           },
           {
             itemid: 4,
             name: "Medication",
             points: 0, 
-            quantity: 0
+            quantity: 0, 
+            qtytotrade: 0
           },
           {
             itemid: 5,
             name: "Clothing",
             points: 0, 
-            quantity: 0
+            quantity: 0,
+            qtytotrade: 0
           }
         ]
       }, 
@@ -194,7 +204,7 @@ export default {
   computed:{
 
    getmartianDropdown1() {
-      return this.martianList.filter( res => res.name !== this.selectedTraderTwo && res.allow !== 0) },
+      return this.martianList.filter( res => res.name !== this.selectedTraderTwo && res.allow !== 0)  },
 
    getmartianDropdown2() {
       return this.martianList.filter( res => res.name !== this.selectedTraderOne && res.allow !== 0) },
@@ -282,7 +292,15 @@ export default {
         selData = this.martianList.filter(res => res.name == this.selectedTraderOne)
         selData[0].inventory.filter(res => {
           if (res.itemid) {
-            selDataInventory.push(res)
+
+            let newObj = {
+              itemid: res.itemid,
+              name: res.name,
+              points: res.points, 
+              quantity: res.quantity,
+              qtytotrade: 0
+            }
+            selDataInventory.push(newObj)
           }
         })
         aa = [...this.traderOneObject.inventory]
@@ -294,7 +312,6 @@ export default {
           inventory: [...bb, ...r]
         }
       }
-      
       return this.traderOneObject
 
     },
@@ -308,7 +325,14 @@ export default {
       selData = this.martianList.filter(res => res.name  == this.selectedTraderTwo)
       selData[0].inventory.filter(res => {
         if(res.itemid){
-          selDataInventory.push(res)
+          let newObj = {
+              itemid: res.itemid,
+              name: res.name,
+              points: res.points, 
+              quantity: res.quantity,
+              qtytotrade: 0
+            }
+          selDataInventory.push(newObj)
         }
       })
       aa = [...this.traderTwoObject.inventory]
@@ -323,18 +347,39 @@ export default {
     return this.traderTwoObject
    },
     computeOxygen : function(qty,pts){
+      /************************************************************
+       *  1. GET Oxygen pts val from martianItems Array put on let 
+       *  2. RETURN qtytotrade * value of Oxygen 
+      ************************************************************/
+      // let oxygenPts = this.martianItems.filter(res => res)
       return pts != 0 ?  qty *  pts :  qty * 6
     },
     computeWater : function(qty,pts) {
+      /************************************************************
+       *  1. GET Water pts val from martianItems Array put on let 
+       *  2. RETURN qtytotrade * value of Water 
+      ************************************************************/
       return pts != 0 ?  qty *  pts :  qty * 4
     },
     computeFood: function(qty,pts) {
+      /************************************************************
+       *  1. GET Food pts val from martianItems Array put on let 
+       *  2. RETURN qtytotrade * value of Food 
+      ************************************************************/
       return pts != 0 ?  qty *  pts :  qty * 3
     }, 
     computeMedication : function(qty,pts) {
+      /************************************************************
+       *  1. GET Medication pts val from martianItems Array put on let 
+       *  2. RETURN qtytotrade * value of Medication 
+      ************************************************************/
       return pts != 0 ?  qty *  pts :  qty * 2
     },
     computeClothing : function(qty,pts) {
+      /************************************************************
+       *  1. GET Clothing pts val from martianItems Array put on let 
+       *  2. RETURN qtytotrade * value of Clothing 
+      ************************************************************/
       return pts != 0 ?  qty *  pts :  qty * 2
     },
     
