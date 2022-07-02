@@ -1,0 +1,42 @@
+/*******************************************/
+
+// Fonts: Base styles
+$font-family-1: Roboto, Arial, sans-serif;
+$font-family-2: Roboto, Arial, sans-serif; 
+$font-family-3: Roboto, Arial, sans-serif;
+
+// Fonts: Weights
+$font-light: 300;
+$font-normal: 400;
+$font-medium: 500;
+$font-semibold: 600;
+$font-bold: 700;
+$font-extrabold: 800;
+$font-black: 900;
+
+//Brand Colours
+$color-1: white; // white
+$color-2: #BB7474; // brown-red
+$color-3: #500005; // dark-brown
+$color-4: #050505; // black
+$color-5: #FF3A44; // red
+
+$grey-1: #F0F2F5;
+$grey-2: #DCDFE6;
+$grey-3: #4A4A4A;
+$grey-4: #050505;
+
+//Breakpoints
+$ancient: 341px;
+$tiny: 361px;
+$small: 410px;
+$smallish: 600px;
+$medium: 767px;
+$mediumer: 900px;
+$mediumish: 1023px;
+$large: 1170px;
+$largeish: 1280px;
+$huge: 1440px;
+$huger: 1500px;
+$hugeish: 1680px;
+$bigmac: 1920px;

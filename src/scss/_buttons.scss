@@ -1,0 +1,48 @@
+/*******************************************/
+
+button.button,
+a.button,
+.button {
+  position: relative;
+  display: inline-block;
+  width: auto;
+  height: 48px;
+  padding: 12px 40px;
+
+  font-family: $font-family-1;
+  font-size: 14px;
+  font-weight: $font-medium;
+  line-height: 24px;
+  letter-spacing: 2px;
+  text-align: center;
+  color: $color-1;
+
+  background: transparent;
+  border: 1px solid $color-1;
+  border-radius: 48px;
+
+  transition: all 0.3s ease-in-out;
+  outline: none;
+  cursor: pointer;
+
+  &.red {
+    color: $color-1;
+
+    background: $color-5;
+    border-color: $color-5;
+  }
+
+  &:focus { outline: none; }
+  &:hover {
+    color: $color-2;
+    background: $color-1;
+    border-color: $color-1;
+  }
+  &:disabled {
+    color: $color-1;
+
+    background: #7F7F7F80;
+    border-color: #7F7F7F80;
+  }
+}
+/*******************************************/

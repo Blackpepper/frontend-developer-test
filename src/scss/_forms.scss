@@ -1,0 +1,200 @@
+/*******************************************/
+
+form, .form {
+  position: relative;
+  width: 100%;
+  padding: 0px;
+
+  text-align: left;
+
+  @media (min-width: $medium) {}
+}
+
+label,
+.label {
+  display: inline-block;
+  width: auto;
+  padding: 3px;
+
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 14px;
+  text-align: left;
+
+  background: white;
+}
+
+/*******************************************/
+// Core Field Styles
+input,
+textarea,
+select,
+.input,
+.disabled {
+  display: inline-block;
+  width: 100%;
+  height: 32px;
+  margin: 0;
+  padding: 4px 0px;
+
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 400;
+  color: $color-1;
+
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  // box-shadow: none;
+
+  outline: none;
+  appearance: none;
+  transition: all .5s ease-in-out;
+
+  &:hover {
+    // box-shadow: 0 0 4px $color-3, inset 0 1px 3px #d6d6d6;
+    // border: 1px solid $color-3;
+  }
+  
+  &:focus { outline: none; }
+}
+
+select::-ms-expand { display: none; }
+
+textarea,
+select[multiple] {
+  min-height: 140px;
+  resize: vertical;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  vertical-align: middle;
+  width: 14px;
+  height: 14px;
+  
+  background-color: white;
+  border: 1px solid #8d8d8d;
+  border-radius: 10px;
+  box-shadow: inset 0 1px 3px #e1e1e1;
+
+  &:checked {
+    color: white;
+    background-color: $color-3;
+    background-size: contain;
+    box-shadow: none;
+  }
+
+  &:hover, &:focus {
+    border: 1px solid $color-3;
+  }
+}
+
+input[type="date"] {
+  padding-right: 6px;
+}
+
+input[type="checkbox"] {
+  border-radius: 2px;
+
+  &:checked {
+    color: white;
+    background-color: $color-3;
+    background-size: contain;
+    box-shadow: none;
+  }
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+  appearance: none;
+}
+
+input[type="file"] { box-shadow: none; }
+
+.disabled,
+input:disabled,
+input[disabled],
+textarea:disabled,
+textarea[disabled],
+select:disabled,
+select[disabled] {
+  font-weight: 400;
+  color: #787B81;
+
+  background: transparent;
+  box-shadow: none !important;
+}
+
+/*******************************************/
+// Misc Field Styles
+*::placeholder {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: $color-1;
+}
+
+/*******************************************/
+// Select
+.form-field.select {
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 28px;
+    right: 10px;
+
+    width: 8px;
+    height: 12px;
+
+    pointer-events: none;
+
+    background: url('/images/svgs/select-arrows.svg') no-repeat;
+    background-size: contain;
+
+    @media (min-width: $medium) {
+      bottom: 24px;
+    }
+  }
+}
+
+/*******************************************/
+// Form submission errors
+
+.form-field.error {
+  input, select, textarea {
+    border-color: $color-4;
+  }
+
+  span.validate {
+    position: absolute;
+    top: 42px;
+    left: 0px;
+    display: inline-block;
+    width: 100%;
+    padding: 0px 5px;
+
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 14px;
+    color: white;
+
+    background: $color-4;
+    border-radius: 0 0 3px 3px;
+    border-top: none;
+  }
+
+  &.solid-label {
+    span.validate { top: 61px; }
+  }
+  &.textarea {
+    span.validate { top: 136px; }
+  }
+}
+/*******************************************/

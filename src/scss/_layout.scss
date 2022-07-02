@@ -1,0 +1,105 @@
+/*******************************************/
+
+html, body {
+  -webkit-overflow-scrolling: touch;
+  
+  background-color: $color-4;
+}
+body {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 1;
+
+    width: 40%;
+    height: 100%;
+
+    background: linear-gradient(90deg, $color-3 0%, rgba(80, 1, 0, 0) 100%);
+
+    @media (min-width: $mediumish) {
+      width: 560px;
+    }
+  }
+
+  &:after {
+    @media (min-width: $medium) {
+      content: '';
+      position: absolute;
+      right: 0px;
+      bottom: 0;
+
+      width: 271px;
+      height: 424px;
+
+      background: url(/images/mars.png) no-repeat center;
+      background-size: contain;
+      mix-blend-mode: exclusion;
+    }
+
+    @media (min-width: $mediumish) {
+      width: 552px;
+      height: 848px;
+    }
+  }
+}
+
+header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+
+  width: 100%;
+  height: 120px;
+  padding: 50px 0;
+
+  @media (min-width: $mediumish) {
+    height: 200px;
+    padding: 50px 0 99px;
+  }
+}
+
+main {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  min-height: 100vh;
+  padding: 200px 0 50px;
+
+  overflow: hidden;
+
+  @media (min-width: $mediumish) {
+    padding: 200px 0 99px;
+  }
+}
+
+.clear-after {
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+}
+
+/*******************************************/
+
+.content-max-width {
+  width: 100%;
+  max-width: 1368px;
+  padding: 0 20px;
+  margin: 0 auto;
+}
