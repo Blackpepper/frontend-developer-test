@@ -34,12 +34,17 @@
       padding: 20px;
       transform: translate(-50%, -50%);
   
-      background: white;
+      background: $color-1;
   
       overflow: auto;
   
       @media (min-width: $medium) {
         padding: 40px;
+      }
+
+      p {
+        margin-bottom: 20px;
+        color: $color-4;
       }
 
       .form,
@@ -51,21 +56,10 @@
         .button {
           margin: 0 5px 0 0;
         }
-      }
-  
-      .exit {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-  
-        width: 24px;
-        height: 24px;
-  
-        cursor: pointer;
-  
-        @media (min-width: $medium) {
-          top: 40px;
-          right: 60px;
+
+        .button:hover {
+          color: $color-5;
+          border-color: $color-5;
         }
       }
     }

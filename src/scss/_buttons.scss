@@ -25,6 +25,12 @@ a.button,
   outline: none;
   cursor: pointer;
 
+  &.border-grey {
+    color: $grey-3;
+
+    border-color: $grey-3;
+  }
+
   &.red {
     color: $color-1;
 

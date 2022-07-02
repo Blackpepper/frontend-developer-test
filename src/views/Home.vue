@@ -73,13 +73,19 @@
           </button>
 
           <button
-            @click="trade()"
+            @click="isTradeOpen = true"
             :disabled="isDisabled"
-            class="button trade"
+            class="button red trade"
           >
             TRADE
           </button>
         </div>
+
+        <PopupConfirmTrade
+          v-if="isTradeOpen"
+          :headline="'Are you sure you want to make this trade?'"
+          @confirm="confirmTrade"
+        />
 
       </div>  
 
@@ -90,22 +96,28 @@
 <script>
 import Trader from '@/components/Trader.vue'
 import SelectTrader from '@/components/SelectTrader.vue'
+import PopupConfirmTrade from '@/components/ConfirmModule.vue'
 
 export default {
   components: {
     Trader,
-    SelectTrader
+    SelectTrader,
+    PopupConfirmTrade
   },
 
   data: () => ({
-    items: [],
-    martians: [],
     loadedItems: false,
     loadedMartians: false,
+    isTradeOpen: false,
+
+    items: [],
+    martians: [],
+
     traderOne: {},
     traderOneTotal: 0,
     traderTwo: {},
     traderTwoTotal: 0,
+
     payload: {
       buyFrom: {
         martianid: 0,
@@ -166,6 +178,15 @@ export default {
           }
         })
     },
+
+    confirmTrade(bool) {
+      // make trade if it is confirmed in popup
+      if (bool) {
+        this.trade()
+      }
+      this.isTradeOpen = false
+    },
+
 
     updateBuyFromItems(items) {
       this.payload.buyFrom.items = this.trimmedItems(items)
