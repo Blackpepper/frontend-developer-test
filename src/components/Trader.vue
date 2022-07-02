@@ -28,7 +28,7 @@ export default {
   },
 
   data: () => ({
-    inventory: []
+    inventory: [{},{},{},{},{}]
   }),
 
   computed: {
@@ -66,12 +66,14 @@ export default {
 
       // loop all items and add traders qty to each
       this.items.forEach(element => {
-        let item = this.trader.inventory.find(obj => obj.name === element.name)
         let qty = 0
 
-        if (item !== undefined) {
-          console.log(item.name, item.quantity)
-          qty = item.quantity
+        if (this.trader.inventory) {
+          let item = this.trader.inventory.find(obj => obj.name === element.name)
+          if (item !== undefined) {
+            // console.log(item.name, item.quantity)
+            qty = item.quantity
+          }
         }
 
         // make new object with correct qty & score(qty*points)

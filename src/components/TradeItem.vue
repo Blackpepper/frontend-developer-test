@@ -33,16 +33,6 @@ export default {
     item: Object
   },
 
-  // data: () => ({
-  //   quantity: 0,
-  // }),
-
-  // watch: {
-  //   item(newValue) {
-  //     this.quantity = 0
-  //   }
-  // },
-
   methods: {
     updateQty(sign) {
       if (sign === '+') {
@@ -73,7 +63,7 @@ export default {
     width: 24px;
     height: 24px;
 
-    font-size: 12px;
+    font-size: 14px;
     line-height: 22px;
     color: white;
 

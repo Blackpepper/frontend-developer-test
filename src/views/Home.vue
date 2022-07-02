@@ -11,8 +11,9 @@
             <h4>Trader 1</h4>
 
             <SelectTrader
+              ref="selectedOne"
               :martians="martians"
-              :otherTraderID="traderTwo.martianid"
+              :otherTraderID="traderTwo.martianid || 0"
               @changeTrader="(n) => traderOne = n"
             ></SelectTrader>
           </div>
@@ -21,8 +22,9 @@
             <h4>Trader 2</h4>
 
             <SelectTrader
+              ref="selectedTwo"
               :martians="martians"
-              :otherTraderID="traderOne.martianid"
+              :otherTraderID="traderOne.martianid || 0"
               @changeTrader="(n) => traderTwo = n"
             ></SelectTrader>
           </div>
@@ -143,8 +145,8 @@ export default {
             this.martians = res.data.data
 
             this.loadedMartians = true
-            this.traderOne = this.martians[0]
-            this.traderTwo = this.martians[1]
+            // this.traderOne = this.martians[0]
+            // this.traderTwo = this.martians[0]
           } else {
             // error
           }
@@ -189,6 +191,8 @@ export default {
     reset() {
       this.traderOne = {}
       this.traderTwo = {}
+      this.$refs.selectedOne.clearTrader()
+      this.$refs.selectedTwo.clearTrader()
       this.payload.buyFrom.items = []
       this.payload.sellTo.items = []
     },
@@ -294,6 +298,7 @@ export default {
         }
 
         .form-field {
+          width: 170px;
           margin-bottom: 14px;
           height: auto;
         }

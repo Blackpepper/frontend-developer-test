@@ -29,8 +29,10 @@ export default {
     trader: {}
   }),
 
-
   methods: {
+    clearTrader() {
+      this.trader = {}
+    }
   }
 }
 </script>
