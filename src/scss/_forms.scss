@@ -1,0 +1,104 @@
+/*******************************************/
+
+form, .form {
+  position: relative;
+  width: 100%;
+  padding: 0px;
+
+  text-align: left;
+
+  @media (min-width: $medium) {}
+}
+
+label,
+.label {
+  display: inline-block;
+  width: auto;
+  padding: 3px;
+
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 14px;
+  text-align: left;
+
+  background: white;
+}
+
+/*******************************************/
+// Core Field Styles
+input,
+textarea,
+select,
+.input,
+.disabled {
+  display: inline-block;
+  width: 100%;
+  height: 32px;
+  margin: 0;
+  padding: 4px 0px;
+
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 400;
+  color: $color-1;
+
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  // box-shadow: none;
+
+  outline: none;
+  appearance: none;
+  transition: all .5s ease-in-out;
+
+  &:hover {
+    // box-shadow: 0 0 4px $color-3, inset 0 1px 3px #d6d6d6;
+    // border: 1px solid $color-3;
+  }
+  
+  &:focus { outline: none; }
+}
+
+.disabled,
+input:disabled,
+input[disabled],
+textarea:disabled,
+textarea[disabled],
+select:disabled,
+select[disabled] {
+  font-weight: 400;
+  color: #787B81;
+
+  background: transparent;
+  box-shadow: none !important;
+}
+
+/*******************************************/
+// Misc Field Styles
+*::placeholder {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: $color-1;
+}
+
+/*******************************************/
+// Select
+.form-field.select {
+  position: relative;
+
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+
+    width: 12px;
+    height: 12px;
+
+    pointer-events: none;
+
+    background: url('/images/icon-down.png') no-repeat;
+    background-size: contain;
+  }
+}
