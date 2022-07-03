@@ -18,6 +18,32 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 @import './forms';
 @import './popups';
 
+
+@keyframes revealLTR {
+	0%{
+	  width: 0;
+	  left: 0;
+	}
+	65%{
+	  width: 100%;
+	  left: 0;
+	}
+	100% {
+	  width: 0;
+	  left: 100%;
+	}
+  }
+  
+  
+  @keyframes revealWidth {
+	0%{
+	  width: 0;
+	}
+	100%{
+	  width: 560px;
+	}
+  }
+
 img {
 	display: block;
 	max-width: 100%;

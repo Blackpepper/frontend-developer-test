@@ -31,6 +31,7 @@ body {
 
     @media (min-width: $mediumish) {
       width: 560px;
+      animation: revealWidth 5s ease;
     }
   }
 
@@ -70,6 +71,32 @@ header {
     height: 200px;
     padding: 50px 0 99px;
   }
+
+  h1 {
+    position: relative;
+
+    display: inline-block;
+    width: auto;
+
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 10;
+
+      height: 100%;
+
+      animation: revealLTR 2s ease;
+    }
+    &:before {
+      background-color: $color-1;
+    }
+    &:after {
+      background-color: $color-4;
+      animation-delay: .5s;
+    }
+  }
 }
 
 main {
@@ -86,15 +113,6 @@ main {
     padding: 200px 0 99px;
   }
 }
-
-.clear-after {
-  &:after {
-    content: '';
-    display: block;
-    clear: both;
-  }
-}
-
 /*******************************************/
 
 .content-max-width {
