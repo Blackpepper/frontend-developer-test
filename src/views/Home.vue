@@ -14,8 +14,8 @@
               ref="selectedOne"
               :martians="martians"
               :otherTraderID="traderTwo.martianid || 0"
-              @changeTrader="(n) => traderOne = n"
-            ></SelectTrader>
+              @changeTrader="(trader) => traderOne = trader"
+            />
           </div>
 
           <div class="col trader-two">
@@ -25,8 +25,8 @@
               ref="selectedTwo"
               :martians="martians"
               :otherTraderID="traderOne.martianid || 0"
-              @changeTrader="(n) => traderTwo = n"
-            ></SelectTrader>
+              @changeTrader="(trader) => traderTwo = trader"
+            />
           </div>
         </div>
 
@@ -48,9 +48,9 @@
               v-if="traderOne"
               :trader="traderOne"
               :items="items"
-              @traderItems="updateBuyFromItems"
+              @traderItems="updateBuyPayload"
               @total="(n) => traderOneTotal = n"
-            ></Trader>
+            />
           </div>
 
           <div class="col trader-two">
@@ -58,33 +58,19 @@
               v-if="traderTwo"
               :trader="traderTwo"
               :items="items"
-              @traderItems="updateSellToItems"
+              @traderItems="updateSellPayload"
               @total="(n) => traderTwoTotal = n"
-            ></Trader>
+            />
           </div>
         </div>
 
-        <div class="actions flex justify-end">
-          <button
-            @click="reset()"
-            class="button reset"
-          >
-            RESET
-          </button>
 
-          <button
-            @click="isTradeOpen = true"
-            :disabled="isDisabled"
-            class="button red trade"
-          >
-            TRADE
-          </button>
-        </div>
-
-        <PopupConfirmTrade
-          v-if="isTradeOpen"
-          :headline="'Are you sure you want to make this trade?'"
-          @confirm="confirmTrade"
+        <FinalActions
+          :isDisabled="isDisabled"
+          :traderOne="traderOne"
+          :traderTwo="traderTwo"
+          :payload="payload"
+          @resetTraders="reset"
         />
 
       </div>  
@@ -96,19 +82,18 @@
 <script>
 import Trader from '@/components/Trader.vue'
 import SelectTrader from '@/components/SelectTrader.vue'
-import PopupConfirmTrade from '@/components/ConfirmModule.vue'
+import FinalActions from '@/components/FinalActions.vue'
 
 export default {
   components: {
     Trader,
     SelectTrader,
-    PopupConfirmTrade
+    FinalActions
   },
 
   data: () => ({
     loadedItems: false,
     loadedMartians: false,
-    isTradeOpen: false,
 
     items: [],
     martians: [],
@@ -145,55 +130,36 @@ export default {
   },
 
   mounted() {
+    // if params have IDs existing set those traders as selected
+    if (this.$route.params) {
+      console.log(this.$route.params.traderOneId)
+    }
+
     this.getMartians()
     this.getItems()
   },
 
   methods: {
-    getMartians() {
-      this.$api().get('/martian')
-        .then((res) => {
-          if (res.status === 200) {
-            this.martians = res.data.data
-
-            this.loadedMartians = true
-            // this.traderOne = this.martians[0]
-            // this.traderTwo = this.martians[0]
-          } else {
-            // error
-          }
-        })
+    async getMartians() {
+      const response = await this.$api().get('/martian')
+      this.martians = response.data.data
+      this.loadedMartians = true
     },
 
-    getItems() {
-      this.$api().get('/martian/items')
-        .then((res) => {
-          if (res.status === 200) {
-            this.items = res.data.data
-            // console.log('home', res.data.data)
-
-            this.loadedItems = true
-          } else {
-            // error
-          }
-        })
+    async getItems() {
+      const response = await this.$api().get('/martian/items')
+      this.items = response.data.data
+      this.loadedItems = true
     },
 
-    confirmTrade(bool) {
-      // make trade if it is confirmed in popup
-      if (bool) {
-        this.trade()
-      }
-      this.isTradeOpen = false
-    },
-
-
-    updateBuyFromItems(items) {
+    updateBuyPayload(items) {
       this.payload.buyFrom.items = this.trimmedItems(items)
+      this.payload.buyFrom.martianid = this.traderOne.martianid
     },
 
-    updateSellToItems(items) {
+    updateSellPayload(items) {
       this.payload.sellTo.items = this.trimmedItems(items)
+      this.payload.sellTo.martianid = this.traderTwo.martianid
     },
 
     trimmedItems(items) {
@@ -216,21 +182,6 @@ export default {
       this.$refs.selectedTwo.clearTrader()
       this.payload.buyFrom.items = []
       this.payload.sellTo.items = []
-    },
-
-    trade() {
-      // add correct ids to buyer and seller
-      this.payload.buyFrom.martianid = this.traderOne.martianid
-      this.payload.sellTo.martianid = this.traderTwo.martianid
-
-      this.$api().post('/martian/trade', this.payload)
-        .then((res) => {
-          if (res.status === 200) {
-            console.log('home', res)
-          } else {
-            // error
-          }
-        })
     }
   }
 }
@@ -335,18 +286,6 @@ export default {
             &:last-of-type {
               border-bottom: 1px solid #494949;
             }
-          }
-        }
-      }
-
-      .actions {
-        margin: 40px 0;
-
-        .button {
-          width: 208px;
-
-          &.trade {
-            margin-left: 24px;
           }
         }
       }

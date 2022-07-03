@@ -18,7 +18,7 @@ a.button,
   color: $color-1;
 
   background: transparent;
-  border: 1px solid $color-1;
+  border: 1px solid #808080;
   border-radius: 48px;
 
   transition: all 0.3s ease-in-out;
@@ -47,8 +47,8 @@ a.button,
   &:disabled {
     color: $color-1;
 
-    background: #7F7F7F80;
-    border-color: #7F7F7F80;
+    background: rgba(#7F7F7F, 0.5);
+    border: 1px solid rgba(#7F7F7F, 0.5);
   }
 }
 /*******************************************/

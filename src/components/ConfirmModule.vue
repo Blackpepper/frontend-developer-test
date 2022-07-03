@@ -1,5 +1,5 @@
 <template>
-  <div class="popup-module small">
+  <div class="popup-module">
     <span @click="$emit('confirm', false)" class="background"></span>
 
     <div class="wrap">

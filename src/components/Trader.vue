@@ -46,7 +46,6 @@ export default {
 
   watch: {
     trader(newValue) {
-      // console.log(newValue)
       this.makeInventory()
     },
 
@@ -62,16 +61,17 @@ export default {
 
   methods: {
     makeInventory() {
+      // create a new Array that holds all trader info in each Obj.
+      // i will find users current 'qty', then add 'selected' and 'score'.
       this.inventory = []
 
-      // loop all items and add traders qty to each
+      // loop all trading-items and add traders qty, selected, score
       this.items.forEach(element => {
         let qty = 0
 
         if (this.trader.inventory) {
           let item = this.trader.inventory.find(obj => obj.name === element.name)
           if (item !== undefined) {
-            // console.log(item.name, item.quantity)
             qty = item.quantity
           }
         }
@@ -93,9 +93,3 @@ export default {
   
 }
 </script>
-
-<style lang="scss">
-.trader {
-
-}
-</style>

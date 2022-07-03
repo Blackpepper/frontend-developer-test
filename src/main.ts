@@ -18,7 +18,7 @@ app.use(VueLoading, {
     width: 50,
     height: 50,
     backgroundColor: '#050505',
-    opacity: 0.9,
+    opacity: 0.7,
     transition: 'fade',
     zIndex: 999,
   })
