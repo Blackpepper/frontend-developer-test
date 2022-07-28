@@ -1,3 +1,32 @@
+
+# mars
+
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
+=======
+# frontend-developer-test
+>>>>>>> c70c90e (Initial commit)
+=======
 # Frontend Developer Test
 
 Be sure to read **all** of this document carefully, and follow the guidelines within.
@@ -148,3 +177,4 @@ Fork this repo and send us a pull request when you think you are done. We will n
 > What if I have a question?
 
 Just create a new issue in this repo and we will respond and get back to you quickly.
+>>>>>>> 51a89d3 (Update README.md)
