@@ -1,11 +1,11 @@
 <template>
 	<div class="traders-select">
-		<div class="traders-1_title">Trader 1</div>
-		<select v-model="selectedTrader1" ref="dropdownObj">
+		<div class="traders-title">Trader 1</div>
+		<select v-model="selectedTrader1" ref="dropdownObj" class="select-trader">
 			<option value="null" selected>Select</option>
 			<option
 				v-for="trader in traders"
-				:disabled="trader.disabled"
+				:disabled="trader === selectedTrader2"
 				:value="trader"
 				:key="trader.martianid"
 			>
@@ -14,12 +14,12 @@
 		</select>
 	</div>
 	<div class="traders-select">
-		<div class="traders-1_title">Trader 2</div>
+		<div class="traders-title">Trader 2</div>
 		<select v-model="selectedTrader2">
 			<option value="null" selected>Select</option>
 			<option
 				v-for="trader in traders"
-				:disabled="trader.disabled"
+				:disabled="trader === selectedTrader1"
 				:value="trader"
 				:key="trader.martianid"
 			>
@@ -57,15 +57,6 @@ export default {
 					martianid: this.selectedTrader1.martianid,
 					items: [],
 				};
-				this.traders.filter((trader) => {
-					if (
-						trader.martianid === this.selectedTrader1.martianid ||
-						trader.martianid === this.selectedTrader2?.martianid
-					) {
-						return (trader.disabled = true);
-					}
-					return (trader.disabled = false);
-				});
 				this.emitter.emit("selectTrader1", this.selectedTrader1);
 			}
 		},
@@ -75,15 +66,6 @@ export default {
 					martianid: this.selectedTrader2.martianid,
 					items: [],
 				};
-				this.traders.filter((trader) => {
-					if (
-						trader.martianid === this.selectedTrader2.martianid ||
-						trader.martianid === this.selectedTrader1?.martianid
-					) {
-						return (trader.disabled = true);
-					}
-					return (trader.disabled = false);
-				});
 				this.emitter.emit("selectTrader2", this.selectedTrader2);
 			}
 		},
@@ -93,20 +75,25 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.traders-select {
+	padding: 0 10px;
+	box-sizing: border-box;
+	margin-left: 95px;
+
+	.traders-title {
+		margin: 5px;
+		font-size: 12px;
+		text-align: left;
+	}
+}
 select {
 	background: none;
 	border: none;
 	color: #fff;
 	display: block;
 	height: 35px;
-}
-
-.traders-select {
-	font-size: 12px;
-	padding: 0 10px;
-	margin: 0 30px;
-	.traders-1_title {
-		margin: 5px 0;
-	}
+	width: 140px;
+	font-weight: 700;
+	font-size: 14px;
 }
 </style>

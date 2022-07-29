@@ -1,7 +1,7 @@
 <template>
-	<h2>Mars Trading Platform</h2>
-	<div class="traders"><MarsTraders :traders="traders" /></div>
+	<div class="title">Mars Trading Platform</div>
 	<div class="traders-platform">
+		<div class="traders"><MarsTraders :traders="traders" /></div>
 		<ul id="items">
 			<li v-for="item in items" :key="item.itemid">
 				<div class="items">
@@ -9,8 +9,8 @@
 				</div>
 			</li>
 		</ul>
+		<MartiansTotalTrades />
 	</div>
-	<MartiansTotalTrades />
 </template>
 
 <script>
@@ -68,19 +68,37 @@ body,
 html {
 	height: 100%;
 	background: url("assets/mars-img.png") fixed no-repeat bottom right/60% 100%,
-		linear-gradient(to right, #470104, #050505 40%);
-
-	padding: 20px;
-	&:disabled {
-		opacity: 0.5;
-	}
+		linear-gradient(to right, #470104, #050505 32%);
+	background-position-y: 130px;
 }
-h2 {
-	color: #fff;
-	margin: 0px 0px;
-	display: block;
+.title {
 	width: 300px;
+	text-transform: uppercase;
+	background-image: linear-gradient(
+		-225deg,
+		#231557 0%,
+		#fff 29%,
+		#ff1361 67%,
+		#44107a 100%
+	);
+	color: #fff;
+	font-size: 14px;
+	font-weight: 700;
 	text-align: left;
+	background-size: auto auto;
+	background-clip: border-box;
+	background-size: 200% auto;
+	color: #fff;
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	animation: textclip 2s linear infinite;
+}
+
+@keyframes textclip {
+	to {
+		background-position: 200% center;
+	}
 }
 #app {
 	font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -88,18 +106,20 @@ h2 {
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
 	color: #2c3e50;
-	margin-top: 60px;
+	margin-top: 50px;
+	padding: 0 136px;
 }
 .traders {
-	width: 40%;
 	position: relative;
-	margin: 40px 0 20px 0px;
+	margin: 124px 0 18px 0px;
 	display: flex;
 	justify-content: flex-end;
 	color: #fff;
+	width: 625px;
 }
 .traders-platform {
-	width: 40%;
+	width: 100%;
+	max-width: 656px;
 	display: flex;
 	flex-direction: column;
 
@@ -109,25 +129,69 @@ h2 {
 		list-style: none;
 
 		li {
-			margin: 10px 0;
+			&:nth-child(odd) {
+				background: rgba(255, 255, 255, 0.1);
+			}
+			.items {
+				width: 100%;
+				box-sizing: border-box;
+				display: flex;
+				height: 88px;
+				color: #fff;
+				justify-content: space-between;
+				align-items: center;
+				padding: 32px 46px;
+
+				.item-name {
+					max-width: 53px;
+					font-size: 16px;
+					flex: auto;
+					text-align: left;
+				}
+			}
 		}
 	}
-	.items {
-		width: 100%;
-		box-sizing: border-box;
-		display: flex;
-		height: 100px;
-		color: #fff;
-		justify-content: space-between;
-		align-items: center;
-		padding: 30px;
+}
 
-		&:nth-child(odd) {
-			background: rgba(255, 255, 255, 0.1);
+@media screen and (max-width: 768px) {
+	body,
+	html {
+		background-size: cover;
+		background-attachment: fixed;
+		background-repeat: no-repeat;
+	}
+	#app {
+		padding: 0 20px;
+	}
+	.traders {
+		width: 100%;
+		.traders-select {
+			margin-left: 0;
 		}
+	}
+
+	.traders-platform #items li .items {
+		padding: 10px;
 		.item-name {
-			max-width: 100px;
-			flex: auto;
+			font-size: 14px;
+		}
+	}
+	.item-value-operator[disabled="true"],
+	.item-value-operator {
+		.btn-minus[data-v-f1690296] {
+			margin: 0;
+		}
+		.btn-plus[data-v-f1690296] {
+			margin: 0;
+		}
+	}
+	.total-trades {
+		padding: 0;
+		.total-trades__name {
+			padding: 10px;
+			font-size: 14px;
+			text-align: left;
+			flex-basis: 10%;
 		}
 	}
 }

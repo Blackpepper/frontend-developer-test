@@ -1,36 +1,35 @@
 <template>
 	<div class="item-value-operator" :disabled="disabledOperator">
-		<button class="btn" @click="minusCounter(item)" type="button" name="button">
-			-
-		</button>
-		<span class="quantityBeingTraded">{{ traderCounter }}</span>
-		/
-		<span
-			v-if="
-				!trader.martianid ||
-				(!trader.inventory.length &&
-					!trader1.inventory.some(
-						(inv) => inv.itemid !== item.itemid && inv.name !== item.name
-					))
-			"
-			>0</span
-		>
-		<span
-			class="quantityTraderHas"
-			v-for="inventory in trader.inventory"
-			:key="inventory.itemid"
-			v-show="inventory.name === item.name"
-		>
-			<span>{{ inventory.quantity }}</span>
-		</span>
 		<button
-			class="btn"
+			class="btn btn-minus"
+			@click="minusCounter(item)"
+			type="button"
+			name="button"
+		></button>
+		<div class="item-value-operator__values">
+			<div class="quantity-being-traded">{{ traderCounter }}</div>
+			/
+			<div
+				class="quantity-trader-has"
+				v-if="!trader.martianid || !trader.inventory.length"
+			>
+				0
+			</div>
+			<div
+				class="quantity-trader-has"
+				v-for="inventory in trader.inventory"
+				:key="inventory.itemid"
+				v-show="inventory.name === item.name"
+			>
+				<span>{{ inventory.quantity }}</span>
+			</div>
+		</div>
+		<button
+			class="btn btn-plus"
 			@click.prevent="addCounter(item)"
 			type="button"
 			name="button"
-		>
-			+
-		</button>
+		></button>
 	</div>
 </template>
 
@@ -205,38 +204,104 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.item-value-operator {
-	display: flex;
-	width: 100px;
-	justify-content: space-around;
-
-	.quantity {
-		-webkit-appearance: none;
-		border: none;
-		text-align: center;
-		width: 30px;
-
-		font-size: 16px;
-		color: #43484d;
-		font-weight: 300;
-		border: 1px solid #e1e8ee;
-	}
-}
-.item-value-operator[disabled="true"] {
-	opacity: 0.4;
-	pointer-events: none;
-}
 .btn {
 	border-radius: 60px;
-	border: 2px solid #fff;
+	background: none;
 	opacity: 1;
-	font-size: 14px;
-
 	cursor: pointer;
+	width: 24px;
+	height: 24px;
+	color: #7f7f7f;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	span {
+		font-size: 24px;
+	}
 
 	&:hover {
 		transition: 0.2s;
 		transform: scale(1.2);
+	}
+}
+
+.item-value-operator {
+	display: flex;
+	justify-content: space-between;
+
+	.item-value-operator__values {
+		font-size: 16px;
+		font-weight: 400;
+		width: 48px;
+		display: flex;
+		justify-content: center;
+
+		.quantity-being-traded {
+			padding: 0 5px;
+		}
+		.quantity-trader-has {
+			padding: 0 5px;
+		}
+	}
+	.btn {
+		border: 1px solid #fff;
+		color: #fff;
+	}
+	.btn-minus {
+		margin-right: 20px;
+		&:before {
+			content: "-";
+			position: relative;
+			font-size: 24px;
+			top: -1px;
+			color: #fff;
+		}
+	}
+	.btn-plus {
+		margin-left: 20px;
+		&:before {
+			content: "+";
+			position: relative;
+			font-size: 20px;
+			top: 0px;
+			color: #fff;
+		}
+	}
+}
+.item-value-operator[disabled="true"] {
+	pointer-events: none;
+	color: #7f7f7f;
+
+	.item-value-operator__values {
+		font-size: 16px;
+		font-weight: 400;
+		width: 48px;
+		display: flex;
+		justify-content: center;
+
+		.quantity-being-traded {
+			padding: 0 5px;
+		}
+		.quantity-trader-has {
+			padding: 0 5px;
+		}
+	}
+	.btn {
+		border: 1px solid #7f7f7f;
+		color: #fff;
+	}
+	.btn-minus {
+		margin-right: 20px;
+		&:before {
+			color: #7f7f7f;
+		}
+	}
+	.btn-plus {
+		margin-left: 20px;
+		&:before {
+			color: #7f7f7f;
+		}
 	}
 }
 </style>

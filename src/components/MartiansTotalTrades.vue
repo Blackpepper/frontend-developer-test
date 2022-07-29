@@ -93,7 +93,6 @@ export default {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	width: 40%;
 	padding: 20px;
 	border-bottom: 1px solid #555;
 	color: #fff;
@@ -104,15 +103,14 @@ export default {
 	}
 	.total-trades__trader {
 		text-align: center;
-		flex-basis: 10%;
-		display: flex;
+		flex-basis: 29%;
+		font-size: 24px;
 	}
 }
 .buttons {
-	width: 38%;
 	height: 60px;
 	text-align: center;
-	padding: 20px;
+	padding: 40px 0;
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
@@ -120,8 +118,12 @@ export default {
 	button {
 		flex-basis: 30%;
 		border: 0;
-		margin: 0 10px;
+		margin-left: 24px;
 		height: 50px;
+		font-size: 14px;
+		font-weight: 700;
+		width: 208px;
+		text-transform: uppercase;
 		padding: 10px 20px;
 		box-sizing: border-box;
 		display: inline-block;
@@ -131,10 +133,7 @@ export default {
 		transition: 0.3s;
 		cursor: pointer;
 	}
-	button:disabled {
-		opacity: 0.4;
-		pointer-events: none;
-	}
+
 	.btn-reset {
 		background: none;
 		border: 1px solid #fff;
@@ -147,6 +146,9 @@ export default {
 			opacity: 0.8;
 		}
 	}
+	.btn-reset:disabled {
+		pointer-events: none;
+	}
 	.btn-trade {
 		background: #ff3a44;
 		transition: 0.3s;
@@ -154,6 +156,10 @@ export default {
 			transition: 0.3s;
 			opacity: 0.8;
 		}
+	}
+	.btn-trade:disabled {
+		background: rgba(127, 127, 127, 0.5);
+		pointer-events: none;
 	}
 }
 </style>
