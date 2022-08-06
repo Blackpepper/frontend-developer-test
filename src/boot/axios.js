@@ -10,8 +10,8 @@ import axios from 'axios'
 const api = axios.create({ 
   baseURL: 'https://www.blackpepper.co.nz/api/',
   headers: {
-    'Access-Control-Allow-Origin' : '*',
-  }
+		"Content-type": "application/json",
+	},
 })
 
 export default boot(({ app }) => {
