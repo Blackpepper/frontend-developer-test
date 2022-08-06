@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Mars trading app (mars-trading)
 
 Technical Exam
