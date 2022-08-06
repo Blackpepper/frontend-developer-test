@@ -97,7 +97,7 @@
         width="1170px"
         height="1170px"
         class="mars-planet-img"
-        src="mars-planet3.png"
+        src="mars-planet.png"
       />
     </div>
   </q-page>
