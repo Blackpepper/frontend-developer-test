@@ -12,7 +12,7 @@ You have been tasked to develop an interface to make the trading experience bett
 
 ## Requirements
 
-You will be supplied a [design](https://www.figma.com/file/LfpdkCFeeeQUkXTGKkvGrm/Mars-trading-platform?node-id=2%3A266) and a [REST API](#endpoints), which will store information about the martians, the supplies they own and ability to trade. Your task is to build a *Vue* application that allows trade between 2 martians.
+You will be supplied a [design](https://www.figma.com/file/LfpdkCFeeeQUkXTGKkvGrm/Mars-trading-platform?node-id=0%3A1) and a [REST API](#endpoints), which will store information about the martians, the supplies they own and ability to trade. Your task is to build a *Vue* application that allows trade between 2 martians.
 
 1. Martians are not allowed to trade with themselves (if they're selected in one dropdown, they should be disabled in the other)
 2. Flagged martians (i.e. where `allow` is `0`) are unable to trade, therefore they should be filtered out from the dropdowns
@@ -35,7 +35,7 @@ You will be supplied a [design](https://www.figma.com/file/LfpdkCFeeeQUkXTGKkvGr
 ---------------------------------------
 
 ## Resources
-- [Figma file](https://www.figma.com/file/LfpdkCFeeeQUkXTGKkvGrm/Mars-trading-platform?node-id=2%3A266)
+- [Figma file](https://www.figma.com/file/LfpdkCFeeeQUkXTGKkvGrm/Mars-trading-platform?node-id=0%3A1)
 
 ## Endpoints
 - GET Index/List Martian `https://www.blackpepper.co.nz/api/martian`
