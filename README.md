@@ -1,3 +1,28 @@
+# Mars trading app (mars-trading)
+
+Technical Exam
+
+## Install the dependencies
+```bash
+yarn
+# or
+npm install
+```
+
+### Start the app in development mode (hot-code reloading, error reporting, etc.)
+```bash
+quasar dev
+```
+
+
+### Build the app for production
+```bash
+quasar build
+```
+
+### Customize the configuration
+See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
+=======
 # Frontend Developer Test
 
 Be sure to read **all** of this document carefully, and follow the guidelines within.
@@ -148,3 +173,4 @@ Fork this repo and send us a pull request when you think you are done. We will n
 > What if I have a question?
 
 Just create a new issue in this repo and we will respond and get back to you quickly.
+
